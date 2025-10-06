@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String   // hashed password for login
+  createdAt DateTime @default(now())
+  resumes   Resume[] // one-to-many relation
+}
+
+model Resume {
+  d             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  personalInfo   Json     // { phone, address, summary }
+  education      Json     // array of education objects
+  experience     Json     // array of experience objects
+  skills         String[] // array of skill
+  GeneratedText  String?  // AI-generated resume text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
