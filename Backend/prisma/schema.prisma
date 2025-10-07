@@ -18,7 +18,7 @@ model User {
 }
 
 model Resume {
-  d             Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   user           User     @relation(fields: [userId], references: [id])
   userId         Int
   personalInfo   Json     // { phone, address, summary }
