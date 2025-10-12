@@ -1,11 +1,12 @@
 import express from 'express'
-import { createResume, UpdateResume } from '../service/ResumeService/ResumeService.js';
-import { Resume } from '../controller/ResumeController.js';
+import { Create, Download, Resume, update } from '../controller/ResumeController.js';
+import authenticateToken from '../config/VerifyToken.js';
 
 const router = express.Router();
 
-router.post('/', createResume);
-router.get("/:id", Resume);
-router.put('/:userId/:resumeId', UpdateResume); 
+router.post('/', authenticateToken,Create);
+router.get("/:id", authenticateToken,Resume);
+router.put('/:userId/:resumeId', authenticateToken,update); 
+router.post('/:ResumeId',authenticateToken ,Download);
 
 export default router;

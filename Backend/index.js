@@ -1,9 +1,10 @@
 import express from 'express';
 import AuthRoute from './routes/AuthRoute.js';
 import ResumeRoute from './routes/ResumeRoute.js'
+import cors from 'cors';
 
 const app = express();
-
+app.use(cors());
 const PORT = process.env.PORT || 4441;
 
 // IMPORTANT: Middleware MUST come BEFORE routes
