@@ -13,7 +13,7 @@ function EditResume() {
     skills: [],
   });
 
-  // ✅ Fetch existing resume data to pre-fill form
+ 
   useEffect(() => {
     const fetchResume = async () => {
       try {
@@ -40,7 +40,7 @@ function EditResume() {
     fetchResume();
   }, [userId, resumeId, token]);
 
-  // ✅ Handle personal info input changes
+  // Handle personal info input changes
   const handlePersonalInfoChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -49,12 +49,12 @@ function EditResume() {
     }));
   };
 
-  // ✅ Update resume
+  //  Update resume
   const editResume = async () => {
     try {
       const res = await axios.put(
         `http://localhost:4441/api/Response/${userId}/${resumeId}`,
-        formData, // 👈 contains personalInfo, education, experience, skills
+        formData, // contains personalInfo, education, experience, skills
         {
           headers: { Authorization: `Bearer ${token}` },
         }

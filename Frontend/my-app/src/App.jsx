@@ -4,6 +4,7 @@ import Login from './page/auth/login'
 import Register from './page/auth/Register'
 import Resume from './page/resume/resume'
 import EditResume from './page/component/editResume'
+import CreateResume from './page/component/CreateResume'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
     <Route path='/register' element={<Register/>}/>
     <Route path='/resume' element={<Resume/>}/>
     <Route path='/edit/:userId/:resumeId' element={<EditResume />} />
+    <Route path='/create' element={<CreateResume/>}/>
    </Routes>
    
    </BrowserRouter>

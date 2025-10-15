@@ -8,6 +8,11 @@ export const createResume = async (req, res) => {
   try {
     const { userId, personalInfo, education, experience, skills } = req.body;
 
+    const parsedUserId = parseInt(userId);
+    if (isNaN(parsedUserId)) {
+      return res.status(400).json({ message: "Invalid userId" });
+    }
+
     // Generate resume text using AI
     const generatedText = await genrateAiresponse({
       name: personalInfo.name,
@@ -19,7 +24,7 @@ export const createResume = async (req, res) => {
 
     const resume = await prisma.resume.create({
       data: {
-        userId,
+        userId: parsedUserId,
         personalInfo,
         education,
         experience,
@@ -99,4 +104,21 @@ export const DownloadResume = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Failed to generate PDF" });
   }
+}
+
+export const DeleteResume =async (req,res)=>{
+try {
+ const { resumeId } = req.params;
+  if(!resumeId){
+    return res.status(400).json({message:"ResumeId is Required!"})
+  }
+  const resume = await prisma.resume.delete({
+    where:{id:parseInt(resumeId)}
+  });
+  return res.status(200).json({message:"Resume Deleted Successfully!"});
+
+} catch (error) {
+     console.error(error);
+    return res.status(500).json({ message: "Failed to delete resume" });
+}
 }
